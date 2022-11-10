@@ -183,41 +183,46 @@ void borrarOcurrencias(int valor) {
 	else {
 		int i = 0;
 		//recorrida de la lista para determinar ocurrencias del valor
-		struct nodo* temporal = inicio;
-		while(temporal -> siguiente != inicio) {
-			if(temporal -> valor == valor) {
+		struct nodo* temporal;
+		struct nodo* actual = inicio;
+		while(actual -> siguiente != inicio) {
+			if(actual -> valor == valor) {
 				// si el valor del temporal es igual al valor a borrar entonces checamos 
 				// si es el primer elemento de la lista o los que le siguen
-//				printf("ando todas las ocurrencias del valor %d en la lista circular\n", valor);
-				if(temporal == inicio) {
+				if(actual == inicio) {
 					printf("borrando el valor %d en la posicion [%d]\n", valor, i);
+					temporal = actual;
 					inicio = inicio -> siguiente;
-					
 					inicio -> anterior = fin;
 					fin -> siguiente = inicio;
+					actual = actual -> siguiente;
 					free(temporal);
-					i++;
-					temporal = temporal -> siguiente;
+					
 				} 
 				
 				else {
 					printf("borrando valor %d en la posicion [%d]\n", valor, i);
 					// en caso de que la ocurrencia este en algun elemento de en medio
 					// hacemos el bypass
-					temporal -> anterior -> siguiente = temporal -> siguiente;
-					temporal -> siguiente -> anterior = temporal -> anterior;
+					temporal = actual;
+					actual -> anterior -> siguiente = actual -> siguiente;
+					actual -> siguiente -> anterior = actual -> anterior;
+					actual = actual -> siguiente;
 					free(temporal);
-					i++;
-					temporal = temporal -> siguiente;
+					
 				}
+			} 
+			else {
+				actual = actual -> siguiente;
 			}
+				
 			i++;
-			temporal = temporal -> siguiente;	
 		}
 		
 		if(fin -> valor == valor) {
 			// si la ocurrencia a borrar es el ultimo elemento
-			printf("elim todas las ocurrencias del valor %d en la lista circular\n", valor);
+			printf("borrando valor %d en la posicion [%d]\n", valor, i);
+			temporal = actual;
 			fin = fin -> anterior;
 			fin -> siguiente = inicio;
 			inicio -> anterior = fin;
@@ -227,6 +232,7 @@ void borrarOcurrencias(int valor) {
 			// si no existe el valor en la lista
 			printf("el valor %d no se encuentra en la lista circular\n", valor);
 		}
+	
 		
 	}
 
@@ -426,25 +432,6 @@ int main() {
 		
 	} while(opcion!= 9); // opcion 9 es salir
 
-//    printf("\n");
-//	printf("¿Cuantos numeros quieres agregar a la lista?:");
-//    scanf("%d", &cantidad);
-//	insertarMultiples(cantidad);
-//	mostrar();
-//	
-//	borrarOcurrencias(1);
-//	
-//	mostrar();
-//	
-//	printf("\n");
-//	printf("¿Cuantos numeros quieres agregar a la lista?:");
-//    scanf("%d", &cantidad);
-//	insertarMultiples(cantidad);
-//	mostrar();
-//	
-//	borrarOcurrencias(1);
-//	
-//	mostrar();
 
 	return 0;
 }
