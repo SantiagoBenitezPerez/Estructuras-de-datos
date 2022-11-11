@@ -308,19 +308,24 @@ void borrarLista() {
 	}
 	else {
 		// creamos un temporal, iteramos la lista y vamos borrando los temporales
-		struct nodo* temporal = inicio;
-    
-	    while(temporal -> siguiente != inicio) {
-		
+		struct nodo* temporal;
+        struct nodo* actual = inicio;
+	    while(actual -> siguiente != inicio) {
+		  temporal = actual;
+		  printf("\n");
+		  printf("Borrando %d de la lista circular\n", temporal -> valor);
 	      free(temporal);
-		  temporal = temporal -> siguiente;
+		  actual = actual -> siguiente;
 	 }
 	    
+	    temporal = fin;
+	    printf("\n");
+	    printf("Borrando %d de la lista circular\n", temporal -> valor);
 	    inicio = NULL;
 	    fin = NULL;
 	    free(temporal);
-	    temporal = NULL;
-	    printf("La lista se ha borrado satisfactoriamente\n");
+	    printf("\n");
+	    printf("LA LISTA CIRCULAR SE HA BORRADO CON EXITO\n");
 	}
 	
     
